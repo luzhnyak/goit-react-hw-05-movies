@@ -16,13 +16,6 @@ export const App = () => {
     const data = JSON.parse(localStorage.getItem('list-contacts'));
     if (data) {
       setContacts([...data]);
-    } else {
-      setContacts([
-        { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
-        { id: nanoid(), name: 'Hermione Kline', number: '443-89-12' },
-        { id: nanoid(), name: 'Eden Clements', number: '645-17-79' },
-        { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
-      ]);
     }
   }, []);
 
@@ -59,11 +52,11 @@ export const App = () => {
 
   return (
     <Container>
-      <Section title="Phonebook">
+      <Section title="Movies finder">
         <ContactForm onSubmit={onSubmit} isNameHas={isNameHas} />
       </Section>
 
-      <Section title="Contacts">
+      <Section title="Movies">
         {contacts.length !== 0 && (
           <Filter filter={filter} onChange={setFilter} />
         )}
