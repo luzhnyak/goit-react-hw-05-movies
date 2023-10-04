@@ -27,12 +27,12 @@ export const Header = () => {
                 Home
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink className="nav-link" to="/movies">
                 Movies
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink className="nav-link" to="/products">
                 Products
               </NavLink>
