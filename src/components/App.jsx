@@ -1,67 +1,27 @@
-import { useState, useEffect, useRef } from 'react';
-import { nanoid } from 'nanoid';
+// import { useState, useEffect, useRef } from 'react';
+import { Routes, Route } from 'react-router-dom';
+// import { nanoid } from 'nanoid';
 
-import { ContactList } from './ContactList/ContactList';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Section } from './Section/Section';
-import { Container } from './App.styled';
-import { Filter } from './Filter/Filter';
+import { Home } from 'pages/Home/Home';
+import { Movies } from 'pages/Movies/Movies';
+import { MovieDetails } from 'pages/MovieDetails/MovieDetails';
+import { NotFound } from 'pages/NotFound/NotFound';
+import { Cast } from './Cast/Cast';
+import { Reviews } from './Reviews/Reviews';
+import { SharedLayout } from './SharedLayout/SharedLayout';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('list-contacts'));
-    if (data) {
-      setContacts([...data]);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    localStorage.setItem('list-contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const isNameHas = name => {
-    return contacts.some(contact => contact.name === name);
-  };
-
-  const onSubmit = data => {
-    data.id = nanoid();
-    setContacts(prev => {
-      return [...prev, { ...data }];
-    });
-  };
-
-  const onDelete = id => {
-    const data = contacts.filter(contact => contact.id !== id);
-    setContacts([...data]);
-  };
-
-  const filterContacts = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
-
   return (
-    <Container>
-      <Section title="Movies finder">
-        <ContactForm onSubmit={onSubmit} isNameHas={isNameHas} />
-      </Section>
-
-      <Section title="Movies">
-        {contacts.length !== 0 && (
-          <Filter filter={filter} onChange={setFilter} />
-        )}
-        <ContactList contacts={filterContacts()} onDelete={onDelete} />
-      </Section>
-    </Container>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies/:movieId" element={<MovieDetails movieId={100} />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 };

@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom/dist';
 import styled from 'styled-components';
 
 export const Item = styled.div`
@@ -19,5 +20,13 @@ export const Button = styled.button`
   border: 1px solid black;
   &:hover {
     color: red;
+  }
+`;
+
+export const StyledLink = styled(NavLink)`
+  color: black;
+
+  &.active {
+    color: orange;
   }
 `;
