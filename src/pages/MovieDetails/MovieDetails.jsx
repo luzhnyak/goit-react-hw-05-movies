@@ -17,23 +17,46 @@ export const MovieDetails = () => {
     }
 
     getMovie();
-  }, []);
+  }, [movieId]);
 
   return (
     <div>
-      <h1>{movie.title}</h1>
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-        className="card-img-top"
-        alt={movie.title}
-      />
-      <div>{movie.overview}</div>
-      <ul>
-        <li>
-          <Link to="cast">Get to know the cast</Link>
+      <div className="row">
+        <div className="col-4">
+          <img
+            src={
+              movie.poster_path &&
+              `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+            }
+            className="card-img-top"
+            alt={movie.title}
+          />
+        </div>
+        <div className="col-8">
+          <h1>{movie.title}</h1>
+          <p>User Score: {movie.vote_average}</p>
+          <h2>Overview</h2>
+          <p>{movie.overview}</p>
+          <h2>Genres</h2>
+          <div>
+            {movie.genres &&
+              movie.genres.map(genre => {
+                return <span key={genre.id}>{genre.name} </span>;
+              })}
+          </div>
+        </div>
+      </div>
+
+      <ul className="nav flex-column mt-3">
+        <li className="nav-item">
+          <Link className="nav-link" to="cast">
+            Get to know the cast
+          </Link>
         </li>
-        <li>
-          <Link to="reviews">Go through the reviews</Link>
+        <li className="nav-item">
+          <Link className="nav-link" to="reviews">
+            Go through the reviews
+          </Link>
         </li>
       </ul>
       <Outlet />

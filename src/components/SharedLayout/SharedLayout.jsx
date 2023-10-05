@@ -4,9 +4,9 @@ import { Outlet } from 'react-router-dom/dist';
 
 export const SharedLayout = () => {
   return (
-    <Container>
+    <div className="container">
       <Header />
       <Outlet />
-    </Container>
+    </div>
   );
 };

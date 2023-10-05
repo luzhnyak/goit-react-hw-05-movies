@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav className="navbar navbar-dark bg-dark navbar-expand-lg mb-3">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="">
           Movies Finder
         </NavLink>
         <button
@@ -23,17 +23,17 @@ export const Header = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">
+              <NavLink className="nav-link" to="">
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/movies">
+              <NavLink className="nav-link" to="movies">
                 Movies
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/products">
+              <NavLink className="nav-link" to="products">
                 Products
               </NavLink>
             </li>
