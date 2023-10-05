@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { fetchMovieById } from 'services/movie-api';
+import noPoster from '../../images/no-poster.jpg';
 
 export const MovieDetails = () => {
   const [movie, setMovie] = useState({});
@@ -25,8 +26,9 @@ export const MovieDetails = () => {
         <div className="col-4">
           <img
             src={
-              movie.poster_path &&
-              `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+                : noPoster
             }
             className="card-img-top"
             alt={movie.title}

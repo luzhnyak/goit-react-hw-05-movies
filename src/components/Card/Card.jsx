@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom/dist';
+import noPoster from '../../images/no-poster.jpg';
 
 export const Card = ({ movie }) => {
   return (
@@ -7,7 +8,11 @@ export const Card = ({ movie }) => {
       <div className="card">
         <Link to={`movies/${movie.id}`}>
           <img
-            src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+                : noPoster
+            }
             className="card-img-top"
             alt={movie.title}
           />

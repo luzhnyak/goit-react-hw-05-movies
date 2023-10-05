@@ -18,7 +18,7 @@ export const Cast = () => {
   }, [movieId]);
   return (
     <div>
-      <h2>Cast</h2>
+      <h2 className="mt-3 mb-3">Cast</h2>
 
       <div className="row g-2">
         {credits.map(actor => {
