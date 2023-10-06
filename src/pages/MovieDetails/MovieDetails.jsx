@@ -1,27 +1,43 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Outlet, useParams, Link } from 'react-router-dom';
+
 import { fetchMovieById } from 'services/movie-api';
+import { Back } from 'components/Back/Back';
+import { Loader } from 'components/Loader/Loader';
+
 import noPoster from '../../images/no-poster.jpg';
 
 export const MovieDetails = () => {
   const [movie, setMovie] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const { movieId } = useParams();
 
   useEffect(() => {
     async function getMovie() {
-      const topMovies = await fetchMovieById(movieId);
-      setMovie(topMovies);
+      try {
+        setLoading(true);
+        const searchMovie = await fetchMovieById(movieId);
+        setMovie(searchMovie);
+      } catch (error) {
+        if (error.code !== 'ERR_CANCELED') {
+          console.log('Something went wrong. Try again.');
+        }
+      } finally {
+        setLoading(false);
+      }
     }
 
     getMovie();
   }, [movieId]);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div>
+      <Back />
       <div className="row">
         <div className="col-4">
           <img
@@ -36,7 +52,7 @@ export const MovieDetails = () => {
         </div>
         <div className="col-8">
           <h1>{movie.title}</h1>
-          <p>User Score: {movie.vote_average}</p>
+          <p>User Score: {movie.vote_average * 10} %</p>
           <h3>Overview</h3>
           <p>{movie.overview}</p>
           <h3>Genres</h3>

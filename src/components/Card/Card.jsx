@@ -6,7 +6,7 @@ export const Card = ({ movie }) => {
   const location = useLocation();
 
   return (
-    <div className="col-3">
+    <div className="col-lg-3 col-md-4 col-sm-6 col-12">
       <div className="card">
         <Link to={`/movies/${movie.id}`} state={{ from: location }}>
           <img

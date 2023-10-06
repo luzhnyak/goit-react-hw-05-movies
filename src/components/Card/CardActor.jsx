@@ -3,7 +3,7 @@ import noPhoto from '../../images/no-photo.jpg';
 
 export const CardActor = ({ actor }) => {
   return (
-    <div className="col-2 me-auto">
+    <div className="col-lg-2 col-md-3 col-sm-4 col-6 me-auto">
       <div className="card">
         <img
           src={

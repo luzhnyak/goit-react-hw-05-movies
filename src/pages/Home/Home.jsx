@@ -1,18 +1,34 @@
-import { Card } from 'components/Card/Card';
 import { useState } from 'react';
 import { useEffect } from 'react';
+
 import { fetchTopMovies } from 'services/movie-api';
+import { Card } from 'components/Card/Card';
+import { Loader } from 'components/Loader/Loader';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getMovies() {
-      const topMovies = await fetchTopMovies();
-      setMovies(topMovies.results);
+      try {
+        setLoading(true);
+        const topMovies = await fetchTopMovies();
+        setMovies(topMovies.results);
+      } catch (error) {
+        if (error.code !== 'ERR_CANCELED') {
+          console.log('Something went wrong. Try again.');
+        }
+      } finally {
+        setLoading(false);
+      }
     }
     getMovies();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="row g-4">

@@ -1,13 +1,15 @@
 // import { FaTimes } from 'react-icons/fa';
 // import { StyledLink } from './Header.styled';
 import { NavLink } from 'react-router-dom';
+import { FaFilm } from 'react-icons/fa';
 
 export const Header = () => {
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-lg mb-3">
-      <div className="container-fluid">
+      <div className="container">
         <NavLink className="navbar-brand" to="">
-          Movies Finder
+          <FaFilm className="d-inline-block align-text-top mt-1 mr-1" />
+          <span> Movies Finder</span>
         </NavLink>
         <button
           className="navbar-toggler"
@@ -30,11 +32,6 @@ export const Header = () => {
             <li className="nav-item">
               <NavLink className="nav-link" to="movies">
                 Movies
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="products">
-                Products
               </NavLink>
             </li>
           </ul>
