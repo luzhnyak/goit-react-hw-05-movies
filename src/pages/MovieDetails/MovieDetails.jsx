@@ -37,9 +37,9 @@ export const MovieDetails = () => {
         <div className="col-8">
           <h1>{movie.title}</h1>
           <p>User Score: {movie.vote_average}</p>
-          <h2>Overview</h2>
+          <h3>Overview</h3>
           <p>{movie.overview}</p>
-          <h2>Genres</h2>
+          <h3>Genres</h3>
           <div>
             {movie.genres &&
               movie.genres.map(genre => {
@@ -48,8 +48,8 @@ export const MovieDetails = () => {
           </div>
         </div>
       </div>
-
-      <ul className="nav flex-column mt-3">
+      <h2 className="mt-3 mb-3">Additional Information</h2>
+      <ul className="nav flex-column">
         <li className="nav-item">
           <Link className="nav-link" to="cast">
             Get to know the cast

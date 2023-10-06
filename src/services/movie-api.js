@@ -67,3 +67,16 @@ export async function fetchMovieCreditsById(id = '') {
   const responce = await axios.get(url);
   return responce.data;
 }
+
+export async function fetchMovieReviewsById(id = '') {
+  const end_point = `/movie/${id}/reviews`;
+
+  const par = new URLSearchParams({
+    api_key: API_KEY,
+  });
+
+  const url = `${BASE_URL}${end_point}?${par}`;
+
+  const responce = await axios.get(url);
+  return responce.data;
+}
