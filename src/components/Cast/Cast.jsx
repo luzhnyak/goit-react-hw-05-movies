@@ -40,6 +40,9 @@ const Cast = () => {
         {credits.map(actor => {
           return <CardActor actor={actor} key={actor.cast_id} />;
         })}
+        {credits.length === 0 && (
+          <p>We don't have any actors for this movie.</p>
+        )}
       </div>
     </div>
   );
