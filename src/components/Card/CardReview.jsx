@@ -1,12 +1,12 @@
 import React from 'react';
 
-export const CardReview = ({ review }) => {
+export const CardReview = ({ review: { author, content } }) => {
   return (
     <div>
       <div className="card">
-        <h5 className="card-header">Author: {review.author}</h5>
+        <h5 className="card-header">Author: {author}</h5>
         <div className="card-body">
-          <p className="card-text">{review.content}</p>
+          <p className="card-text">{content}</p>
         </div>
       </div>
     </div>

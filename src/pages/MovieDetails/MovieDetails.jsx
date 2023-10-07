@@ -33,6 +33,8 @@ const MovieDetails = () => {
     getMovie();
   }, [movieId]);
 
+  const { title, poster_path, vote_average, overview, genres } = movie;
+
   if (loading) {
     return <Loader />;
   }
@@ -44,24 +46,24 @@ const MovieDetails = () => {
         <div className="col-4">
           <img
             src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+              poster_path
+                ? `https://image.tmdb.org/t/p/w300/${poster_path}`
                 : noPoster
             }
             className="card-img-top"
-            alt={movie.title}
+            alt={title}
           />
         </div>
         <div className="col-8">
           <h1>{movie.title}</h1>
-          <p>User Score: {Math.round(movie.vote_average * 10)} %</p>
+          <p>User Score: {Math.round(vote_average * 10)} %</p>
           <h3>Overview</h3>
-          <p>{movie.overview}</p>
+          <p>{overview}</p>
           <h3>Genres</h3>
           <div>
-            {movie.genres &&
-              movie.genres.map(genre => {
-                return <span key={genre.id}>{genre.name} </span>;
+            {genres &&
+              genres.map(({ id, name }) => {
+                return <span key={id}>{name} </span>;
               })}
           </div>
         </div>
