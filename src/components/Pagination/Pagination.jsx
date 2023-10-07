@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 export const Pagination = ({ totalPage, page, query }) => {
   const location = useLocation();
-  console.log(page);
 
   const genItems = showItems => {
     if (!totalPage) return [];
@@ -67,5 +66,3 @@ export const Pagination = ({ totalPage, page, query }) => {
     </div>
   );
 };
-
-// export default Pagination;

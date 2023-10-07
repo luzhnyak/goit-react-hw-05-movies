@@ -1,5 +1,3 @@
-// import { FaTimes } from 'react-icons/fa';
-// import { StyledLink } from './Header.styled';
 import { NavLink } from 'react-router-dom';
 import { FaFilm } from 'react-icons/fa';
 

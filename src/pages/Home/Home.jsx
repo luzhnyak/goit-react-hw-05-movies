@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { fetchTopMovies } from 'services/movie-api';
-import { Card } from 'components/Card/Card';
 import { Loader } from 'components/Loader/Loader';
+import { Gallery } from 'components/Gallery/Gallery';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -17,7 +17,7 @@ const Home = () => {
         setMovies(topMovies.results);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
-          console.log('Something went wrong. Try again.');
+          console.error('Something went wrong. Try again.');
         }
       } finally {
         setLoading(false);
@@ -26,15 +26,10 @@ const Home = () => {
     getMovies();
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <div className="row g-4">
-      {movies.map(movie => {
-        return <Card key={movie.id} movie={movie} />;
-      })}
+    <div>
+      {loading && <Loader />}
+      {movies.length !== 0 && <Gallery movies={movies} />}
     </div>
   );
 };

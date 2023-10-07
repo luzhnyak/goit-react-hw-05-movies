@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { fetchMovies } from 'services/movie-api';
-import { Card } from 'components/Card/Card';
 import { Pagination } from 'components/Pagination/Pagination';
 import { Loader } from 'components/Loader/Loader';
+import { Gallery } from 'components/Gallery/Gallery';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,7 +38,7 @@ const Movies = () => {
         setMovies(allMovies);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
-          console.log('Something went wrong. Try again.');
+          console.error('Something went wrong. Try again.');
         }
       } finally {
         setLoading(false);
@@ -46,10 +46,6 @@ const Movies = () => {
     }
     getMovies();
   }, [query, page, setSearchParams]);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div>
@@ -60,17 +56,17 @@ const Movies = () => {
           placeholder="Search"
           aria-label="Search"
           name="query"
-          // value={query}
         />
         <button className="btn btn-outline-success" type="submit">
           Search
         </button>
       </form>
-      <div className="row g-4">
-        {movies.results?.map(movie => {
-          return <Card key={movie.id} movie={movie} />;
-        })}
-      </div>
+      {loading && <Loader />}
+      {movies.results?.length === 0 && query && (
+        <p>Sorry. We can't find movies matching your query "{query}".</p>
+      )}
+
+      {movies.results?.length !== 0 && <Gallery movies={movies.results} />}
       {movies.total_pages > 1 && (
         <Pagination totalPage={movies.total_pages} page={page} query={query} />
       )}

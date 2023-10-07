@@ -1,5 +1,5 @@
-import { useState, useEffect, Suspense } from 'react';
-import { Outlet, useParams, NavLink } from 'react-router-dom';
+import { useState, useEffect, Suspense, useRef } from 'react';
+import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 
 import { fetchMovieById } from 'services/movie-api';
 import { Back } from 'components/Back/Back';
@@ -12,6 +12,8 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(false);
 
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     async function getMovie() {
@@ -21,7 +23,7 @@ const MovieDetails = () => {
         setMovie(searchMovie);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
-          console.log('Something went wrong. Try again.');
+          console.error('Something went wrong. Try again.');
         }
       } finally {
         setLoading(false);
@@ -36,8 +38,8 @@ const MovieDetails = () => {
   }
 
   return (
-    <div>
-      <Back />
+    <div className="mb-4">
+      <Back backLinkLocationRef={backLinkLocationRef.current} />
       <div className="row">
         <div className="col-4">
           <img
@@ -64,6 +66,7 @@ const MovieDetails = () => {
           </div>
         </div>
       </div>
+
       <h2 className="mt-3 mb-3">Additional Information</h2>
 
       <ul className="nav nav-tabs">
@@ -79,18 +82,6 @@ const MovieDetails = () => {
         </li>
       </ul>
 
-      {/* <ul className="nav flex-column">
-        <li className="nav-item">
-          <Link className="nav-link" to="cast">
-            Get to know the cast
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="reviews">
-            Go through the reviews
-          </Link>
-        </li>
-      </ul> */}
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

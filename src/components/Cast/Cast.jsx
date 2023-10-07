@@ -18,7 +18,7 @@ const Cast = () => {
         setCredits(_credits.cast);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
-          console.log('Something went wrong. Try again.');
+          console.error('Something went wrong. Try again.');
         }
       } finally {
         setLoading(false);

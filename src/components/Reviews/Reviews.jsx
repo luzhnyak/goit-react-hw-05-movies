@@ -18,7 +18,7 @@ const Reviews = () => {
         setReviews(_reviews.results);
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
-          console.log('Something went wrong. Try again.');
+          console.error('Something went wrong. Try again.');
         }
       } finally {
         setLoading(false);
@@ -39,6 +39,9 @@ const Reviews = () => {
         {reviews.map(review => {
           return <CardReview review={review} key={review.id} />;
         })}
+        {reviews.length === 0 && (
+          <p>We don't have ane reviews for this movie.</p>
+        )}
       </div>
     </div>
   );

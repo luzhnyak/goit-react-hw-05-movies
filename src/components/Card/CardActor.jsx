@@ -4,7 +4,7 @@ import noPhoto from '../../images/no-photo.jpg';
 export const CardActor = ({ actor }) => {
   return (
     <div className="col-lg-2 col-md-3 col-sm-4 col-6 me-auto">
-      <div className="card">
+      <div className="card h-100">
         <img
           src={
             actor.profile_path
