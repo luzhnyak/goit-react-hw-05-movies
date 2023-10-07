@@ -1,21 +1,35 @@
 import { CardReview } from 'components/Card/CardReview';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviewsById } from 'services/movie-api';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { movieId } = useParams();
 
   useEffect(() => {
     async function getReviewsMovie() {
-      const _reviews = await fetchMovieReviewsById(movieId);
-      setReviews(_reviews.results);
+      try {
+        setLoading(true);
+        const _reviews = await fetchMovieReviewsById(movieId);
+        setReviews(_reviews.results);
+      } catch (error) {
+        if (error.code !== 'ERR_CANCELED') {
+          console.log('Something went wrong. Try again.');
+        }
+      } finally {
+        setLoading(false);
+      }
     }
 
     getReviewsMovie();
   }, [movieId]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div>
@@ -29,3 +43,5 @@ export const Reviews = () => {
     </div>
   );
 };
+
+export default Reviews;

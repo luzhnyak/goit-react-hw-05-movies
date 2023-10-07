@@ -5,7 +5,7 @@ import { fetchTopMovies } from 'services/movie-api';
 import { Card } from 'components/Card/Card';
 import { Loader } from 'components/Loader/Loader';
 
-export const Home = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -38,3 +38,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

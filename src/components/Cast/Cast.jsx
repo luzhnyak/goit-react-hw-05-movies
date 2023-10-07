@@ -1,21 +1,37 @@
 import { CardActor } from 'components/Card/CardActor';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCreditsById } from 'services/movie-api';
 
-export const Cast = () => {
+const Cast = () => {
   const [credits, setCredits] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { movieId } = useParams();
 
   useEffect(() => {
     async function getCreditsMovie() {
-      const _credits = await fetchMovieCreditsById(movieId);
-      setCredits(_credits.cast);
+      try {
+        setLoading(true);
+        const _credits = await fetchMovieCreditsById(movieId);
+        setCredits(_credits.cast);
+      } catch (error) {
+        if (error.code !== 'ERR_CANCELED') {
+          console.log('Something went wrong. Try again.');
+        }
+      } finally {
+        setLoading(false);
+      }
     }
 
     getCreditsMovie();
   }, [movieId]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div>
       <h3 className="mt-3 mb-3">Cast</h3>
@@ -28,3 +44,5 @@ export const Cast = () => {
     </div>
   );
 };
+
+export default Cast;

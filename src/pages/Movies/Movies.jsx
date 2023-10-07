@@ -6,7 +6,7 @@ import { Card } from 'components/Card/Card';
 import { Pagination } from 'components/Pagination/Pagination';
 import { Loader } from 'components/Loader/Loader';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -77,3 +77,5 @@ export const Movies = () => {
     </div>
   );
 };
+
+export default Movies;

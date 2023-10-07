@@ -1,14 +1,14 @@
-// import { useState, useEffect, useRef } from 'react';
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-// import { nanoid } from 'nanoid';
 
-import { Home } from 'pages/Home/Home';
-import { Movies } from 'pages/Movies/Movies';
-import { MovieDetails } from 'pages/MovieDetails/MovieDetails';
-import { NotFound } from 'pages/NotFound/NotFound';
-import { Cast } from './Cast/Cast';
-import { Reviews } from './Reviews/Reviews';
 import { SharedLayout } from './SharedLayout/SharedLayout';
+
+const Home = lazy(() => import('pages/Home/Home'));
+const Movies = lazy(() => import('pages/Movies/Movies'));
+const MovieDetails = lazy(() => import('pages/MovieDetails/MovieDetails'));
+const NotFound = lazy(() => import('pages/NotFound/NotFound'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 export const App = () => {
   return (

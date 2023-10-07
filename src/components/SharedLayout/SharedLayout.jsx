@@ -1,4 +1,6 @@
 import { Header } from 'components/Header/Header';
+import { Loader } from 'components/Loader/Loader';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom/dist';
 
 export const SharedLayout = () => {
@@ -6,7 +8,9 @@ export const SharedLayout = () => {
     <div>
       <Header />
       <div className="container">
-        <Outlet />
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );

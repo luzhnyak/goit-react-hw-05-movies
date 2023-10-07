@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Outlet, useParams, Link } from 'react-router-dom';
+import { useState, useEffect, Suspense } from 'react';
+import { Outlet, useParams, NavLink } from 'react-router-dom';
 
 import { fetchMovieById } from 'services/movie-api';
 import { Back } from 'components/Back/Back';
@@ -7,7 +7,7 @@ import { Loader } from 'components/Loader/Loader';
 
 import noPoster from '../../images/no-poster.jpg';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,7 @@ export const MovieDetails = () => {
         </div>
         <div className="col-8">
           <h1>{movie.title}</h1>
-          <p>User Score: {movie.vote_average * 10} %</p>
+          <p>User Score: {Math.round(movie.vote_average * 10)} %</p>
           <h3>Overview</h3>
           <p>{movie.overview}</p>
           <h3>Genres</h3>
@@ -65,7 +65,21 @@ export const MovieDetails = () => {
         </div>
       </div>
       <h2 className="mt-3 mb-3">Additional Information</h2>
-      <ul className="nav flex-column">
+
+      <ul className="nav nav-tabs">
+        <li className="nav-item">
+          <NavLink className="nav-link" aria-current="page" to="cast">
+            Cast
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" aria-current="page" to="reviews">
+            Reviews
+          </NavLink>
+        </li>
+      </ul>
+
+      {/* <ul className="nav flex-column">
         <li className="nav-item">
           <Link className="nav-link" to="cast">
             Get to know the cast
@@ -76,8 +90,12 @@ export const MovieDetails = () => {
             Go through the reviews
           </Link>
         </li>
-      </ul>
-      <Outlet />
+      </ul> */}
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
+
+export default MovieDetails;

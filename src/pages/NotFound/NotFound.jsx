@@ -1,3 +1,5 @@
-export const NotFound = () => {
-  return <div>NotFound</div>;
+const NotFound = () => {
+  return <h1>Page not found</h1>;
 };
+
+export default NotFound;
